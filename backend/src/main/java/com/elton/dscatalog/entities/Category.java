@@ -18,14 +18,14 @@ public class Category implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private String name;
 	
 	public Category() {}
 	
 	public Category(Long id, String nome) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = nome;
 	}
 	
 	public Long getId() {
@@ -35,14 +35,14 @@ public class Category implements Serializable{
 		this.id = id;
 	}
 	public String getNome() {
-		return nome;
+		return name;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.name = nome;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nome);
+		return Objects.hash(id, name);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -53,7 +53,7 @@ public class Category implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
-		return Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 	
 	
