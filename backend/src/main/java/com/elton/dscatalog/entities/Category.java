@@ -21,29 +21,28 @@ public class Category implements Serializable{
 	private String name;
 	
 	public Category() {}
-	
-	public Category(Long id, String nome) {
-		super();
-		this.id = id;
-		this.name = nome;
-	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
+
+	public String getName() {
 		return name;
 	}
-	public void setNome(String nome) {
-		this.name = nome;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,6 +54,8 @@ public class Category implements Serializable{
 		Category other = (Category) obj;
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
+	
+	
 	
 	
 }
