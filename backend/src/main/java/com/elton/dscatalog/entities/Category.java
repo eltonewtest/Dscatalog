@@ -1,17 +1,20 @@
 package com.elton.dscatalog.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tb_category")
-
 public class Category implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +22,13 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createdAt;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updatedAt;
+	
 	
 	public Category() {}
 
@@ -43,6 +53,29 @@ public class Category implements Serializable{
 		return Objects.hash(id, name);
 	}
 
+	
+	
+	
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		createdAt = Instant.now();
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		updatedAt = Instant.now();
+	}
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
