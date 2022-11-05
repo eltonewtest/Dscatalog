@@ -13,7 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.elton.dscatalog.dto.CategoryDto;
+import com.elton.dscatalog.dto.CategoryDTO;
 import com.elton.dscatalog.entities.Category;
 import com.elton.dscatalog.repositories.CategoryRepository;
 import com.elton.dscatalog.services.exceptions.DatabaseException;
@@ -26,38 +26,38 @@ public class CategoryService {
 	private CategoryRepository catRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<CategoryDto> findAllPaged(PageRequest pageRequest) {
+	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Category> list = catRepository.findAll(pageRequest);
 		
 		//Tranformar lista de Category em CategpryDto
-		return list.map( x -> new CategoryDto(x) );
+		return list.map( x -> new CategoryDTO(x) );
 	}
 	
 	
 	@Transactional(readOnly = true)
-	public CategoryDto findById(Long id) {
+	public CategoryDTO findById(Long id) {
 		Optional<Category> obj =  catRepository.findById(id);
 		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity Not Found"));
-		return new CategoryDto(entity);
+		return new CategoryDTO(entity);
 	}
 
 	@Transactional
-	public CategoryDto insert(CategoryDto dto) {
+	public CategoryDTO insert(CategoryDTO dto) {
 		Category entity = new Category();
 		entity.setName(dto.getName());
 		entity = catRepository.save(entity);
-		return new CategoryDto(entity);
+		return new CategoryDTO(entity);
 	}
 
 	@Transactional
-	public CategoryDto update(Long id, CategoryDto dto) {
+	public CategoryDTO update(Long id, CategoryDTO dto) {
 		try {
 			
 			//método atualizado -> getReferenceById
 			Category entity = catRepository.getReferenceById(id);
 			entity.setName(dto.getName());
 			entity = catRepository.save(entity);
-			return new CategoryDto(entity);
+			return new CategoryDTO(entity);
 			
 		} catch (EntityNotFoundException e) {
 			

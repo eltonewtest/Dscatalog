@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.elton.dscatalog.dto.CategoryDTO;
-import com.elton.dscatalog.services.CategoryService;
+import com.elton.dscatalog.dto.ProductDTO;
+import com.elton.dscatalog.services.ProductService;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryResource {
+@RequestMapping(value = "/products")
+public class ProductResource {
 	
 	@Autowired
-	private CategoryService catService;
+	private ProductService catService;
 	
 	@GetMapping
-	public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 													 @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 													 @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
 													 @RequestParam(value = "direction", defaultValue = "ASC") String direction)
@@ -39,20 +39,20 @@ public class CategoryResource {
 												 Direction.valueOf(direction), 
 												 orderBy);
 		
-		Page<CategoryDTO> list = catService.findAllPaged(pageRequest);
+		Page<ProductDTO> list = catService.findAllPaged(pageRequest);
 	
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
-		CategoryDTO dto = catService.findById(id);
+	public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+		ProductDTO dto = catService.findById(id);
 	
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto){
+	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto){
 		dto = catService.insert(dto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -62,8 +62,8 @@ public class CategoryResource {
 	
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, 
-											  @RequestBody CategoryDTO dto){
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, 
+											  @RequestBody ProductDTO dto){
 		dto = catService.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
